@@ -5,6 +5,8 @@ import AuthNavigator from './src/navigators/AuthNavigator';
 import MainNavigator from './src/navigators/MainNavigator';
 import { StatusBar } from 'react-native';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import { Provider } from 'react-redux';
+import store from './src/lib/redux/store';
 
 const App = () => {
   const [isShowSplash, setIsShowSplash] = useState(true);
@@ -32,7 +34,7 @@ const App = () => {
   };
 
   return (
-    <>
+    <Provider store={store}>
       <StatusBar barStyle={'dark-content'} translucent backgroundColor={'transparent'} />
       {isShowSplash ? (
         <SplashScreen />
@@ -41,7 +43,7 @@ const App = () => {
           {accessToken ? <MainNavigator /> : <AuthNavigator />}
         </NavigationContainer>
       )}
-    </>
+    </Provider>
   );
 };
 
